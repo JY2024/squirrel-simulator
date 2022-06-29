@@ -6,3 +6,12 @@
 position = Vector2( 730, 486 )
 scale = Vector2( 0.182495, 0.210753 )
 texture = ExtResource( 1 )
+
+[node name="CannotPickUpTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="GrowIntoTreeTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
