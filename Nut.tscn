@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://art/dirt_patch.png" type="Texture" id=1]
+
+[node name="Nut" type="Sprite"]
+position = Vector2( 730, 486 )
+scale = Vector2( 0.182495, 0.210753 )
+texture = ExtResource( 1 )
