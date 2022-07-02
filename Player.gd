@@ -1,7 +1,8 @@
 extends Area2D
 
-signal nut_placed
-signal nut_grabbed
+# signal nut_placed
+# signal nut_grabbed
+signal nut_touched
 
 export var speed = 400
 var screen_size
