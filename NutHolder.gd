@@ -5,9 +5,12 @@ class_name NutHolder
 signal picked_up
 
 var pickup_available = false
+var pos_x
+var pos_y
 
-func _init():
-	pass
+func _init(position_x, position_y):
+	pos_x = position_x
+	pos_y = position_y
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
