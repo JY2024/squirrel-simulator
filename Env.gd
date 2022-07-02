@@ -40,3 +40,6 @@ func _position_to_index(position):
 	var x = int(round(stepify(position.x, cell_size.x) / cell_size.x))
 	var y = int(round(stepify(position.y, cell_size.y) / cell_size.y))
 	return [x, y]
+
+func _plant_nut():
+	pass
