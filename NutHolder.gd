@@ -1,6 +1,13 @@
 extends Sprite
 
+class_name NutHolder
+
 signal picked_up
+
+var pickup_available = false
+
+func _init():
+	pass
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
