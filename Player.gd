@@ -1,7 +1,5 @@
 extends Area2D
 
-# signal nut_placed
-# signal nut_grabbed
 signal nut_touched
 
 export var speed = 400
@@ -19,7 +17,7 @@ func _process(delta):
 	_touch_nut()
 
 func _touch_nut():
-	if Input.is_action_pressed("nut_action"):
+	if Input.is_action_just_pressed("nut_action"):
 		emit_signal("nut_touched")
 
 func _walk(delta):
