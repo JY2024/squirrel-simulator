@@ -12,15 +12,16 @@ animations = [ {
 } ]
 
 [node name="Player" type="Area2D"]
-position = Vector2( 138, 47 )
+position = Vector2( 139, 63 )
+scale = Vector2( 0.25, 0.25 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 117.25, 120.75 )
-scale = Vector2( 0.2, 0.2 )
+position = Vector2( 5.37501, 1.22499 )
+scale = Vector2( 0.691758, 0.701153 )
 frames = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
