@@ -26,6 +26,7 @@ func _process(delta):
 # Handle behavior when player attempts to plant or pick up a nut
 func _on_Env_nut_touched(position):
 	var indices = _position_to_index(position)
+	print("position is (" + str(position.x) + " , " + str(position.y) + ")\nand index is " + str(indices.x) + " , " + str(indices.y))
 	var obj = obj_holder[indices.x][indices.y]
 	# if nothing there and nuts available, place nut
 	if obj == null & nuts > 0:
@@ -37,7 +38,9 @@ func _on_Env_nut_touched(position):
 
 # Convert window position to grid indices
 func _position_to_index(position):
-	return Vector2(round(position.x / cell_size.x), round(position.y / cell_size.y))
+	var x = int(round(stepify(position.x, cell_size.x) / cell_size.x))
+	var y = int(round(stepify(position.y, cell_size.y) / cell_size.y))
+	return Vector2(x, y)
 
 # Handle nut placement on environment
 func _plant_nut(indices, position):
