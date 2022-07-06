@@ -28,7 +28,7 @@ func _on_Env_nut_touched():
 		var position = PlayerNode.position
 		var indices = _position_to_index(position)
 		var obj = obj_holder[indices[0]][indices[1]]
-		if obj == null:
+		if obj == null: # Empty
 			if PlayerNode.nuts > 0:
 				_plant_nut(indices[0], indices[1])
 				PlayerNode.nuts -= 1
