@@ -1,7 +1,11 @@
 extends Area2D
 
+signal nut_touched
+
 export var speed = 400
 var screen_size
+
+export var nuts = 10
 
 # Runs upon entering the scene tree
 func _ready():
@@ -10,6 +14,11 @@ func _ready():
 # Called every frame
 func _process(delta):
 	_walk(delta)
+	_touch_nut()
+
+func _touch_nut():
+	if Input.is_action_just_pressed("nut_action"):
+		emit_signal("nut_touched")
 
 func _walk(delta):
 	var velocity = Vector2.ZERO # Player movement vector
@@ -32,3 +41,14 @@ func _walk(delta):
 	position += velocity * delta
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
+	
+	if velocity.x != 0:
+		$AnimatedSprite.animation = "default"
+		$AnimatedSprite.flip_h = velocity.x < 0 # Flip image
+
+
+func _on_Player_nut_grabbed():
+	nuts += 1
+
+func _on_Player_nut_placed():
+	nuts -= 1
