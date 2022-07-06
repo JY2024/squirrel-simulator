@@ -29,25 +29,27 @@ func _on_Env_nut_touched(position):
 	print("position is (" + str(position.x) + " , " + str(position.y) + ")\nand index is " + str(indices.x) + " , " + str(indices.y))
 	var obj = obj_holder[indices.x][indices.y]
 	# if nothing there and nuts available, place nut
-	if obj == null & nuts > 0:
+	if obj == null && nuts > 0:
 		_plant_nut(indices, position)
 	# elif there is a nut and can pick up, pick up nut
-	elif obj != null & obj.pickup_available:
+	elif obj != null && obj.pickup_available:
 		_pick_nut(indices)
-	pass
 
 # Convert window position to grid indices
 func _position_to_index(position):
 	var x = int(round(stepify(position.x, cell_size.x) / cell_size.x))
 	var y = int(round(stepify(position.y, cell_size.y) / cell_size.y))
+	if x == 20:
+		x -= 1
+	if y == 12:
+		y -= 1
 	return Vector2(x, y)
 
 # Handle nut placement on environment
 func _plant_nut(indices, position):
 	var nut = NutHolder.new(position.x, position.y) # New nut instance
 	obj_holder[indices.x][indices.y] = nut # Place in array
-	# Place in environment
-	pass
+	self.add_child(nut)# Place in environment
 
 # Handle nut pick up on environment
 func _pick_nut(indices):
