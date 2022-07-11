@@ -8,6 +8,9 @@ var plant_held = false
 var obj_holder
 var cell_size
 
+# Resources
+var dirt_patch_img = preload("res://art/dirt_patch.png")
+
 func _ready():
 	# Members
 	cell_size = Vector2(get_viewport_rect().size.x / 20, get_viewport_rect().size.y / 12)
@@ -53,13 +56,13 @@ func _plant_nut(indices):
 	
 	var nut = NutHolder.new(pos_x, pos_y) # New nut instance
 	# Scale nut
-	var img = Image.new()
-	img.load("res://art/dirt_patch.png")
-	nut.scale = Vector2(get_viewport_rect().size.x / (img.get_size().x * 20), get_viewport_rect().size.y / (img.get_size().y * 12))
+	nut.scale = Vector2(get_viewport_rect().size.x / (dirt_patch_img.get_size().x * 20), get_viewport_rect().size.y / (dirt_patch_img.get_size().y * 12))
 	
 	obj_holder[indices.x][indices.y] = nut # Place in array
 	get_tree().root.add_child(nut) # Place in environment
+#	get_node("CannotPickUpTimer").start()
 
 # Handle nut pick up on environment
 func _pick_nut(indices):
-	pass
+	get_tree().root.remove_child(obj_holder[indices.x][indices.y]) # Remove from environment
+	obj_holder[indices.x][indices.y] = null # Remove from array
