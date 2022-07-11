@@ -48,8 +48,13 @@ func _position_to_index(position):
 # Handle nut placement on environment
 func _plant_nut(indices, position):
 	var nut = NutHolder.new(position.x, position.y) # New nut instance
+	# Scale nut
+	var img = Image.new()
+	img.load("res://art/dirt_patch.png")
+	nut.scale = Vector2(get_viewport_rect().size.x / (img.get_size().x * 20), get_viewport_rect().size.y / (img.get_size().y * 12))
+	
 	obj_holder[indices.x][indices.y] = nut # Place in array
-	self.add_child(nut)# Place in environment
+	get_tree().root.add_child(nut) # Place in environment
 
 # Handle nut pick up on environment
 func _pick_nut(indices):
