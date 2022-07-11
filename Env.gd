@@ -30,7 +30,7 @@ func _on_Env_nut_touched(position):
 	var obj = obj_holder[indices.x][indices.y]
 	# if nothing there and nuts available, place nut
 	if obj == null && nuts > 0:
-		_plant_nut(indices, position)
+		_plant_nut(indices)
 	# elif there is a nut and can pick up, pick up nut
 	elif obj != null && obj.pickup_available:
 		_pick_nut(indices)
@@ -46,8 +46,12 @@ func _position_to_index(position):
 	return Vector2(x, y)
 
 # Handle nut placement on environment
-func _plant_nut(indices, position):
-	var nut = NutHolder.new(position.x, position.y) # New nut instance
+func _plant_nut(indices):
+	# Calculate position
+	var pos_x = (cell_size.x * indices.x) + (cell_size.x / 2)
+	var pos_y = (cell_size.y * indices.y) + (cell_size.y / 2)
+	
+	var nut = NutHolder.new(pos_x, pos_y) # New nut instance
 	# Scale nut
 	var img = Image.new()
 	img.load("res://art/dirt_patch.png")
