@@ -60,7 +60,7 @@ func _plant_nut(indices, img, scale):
 	# Scale
 	var obj_scale = Vector2(get_viewport_rect().size.x / (img.get_size().x * 20), get_viewport_rect().size.y / (img.get_size().y * 12))
 	
-	var nut = NutHolder.new(pos_x, pos_y, obj_scale) # New nut instance
+	var nut = NutHolder.new(pos_x, pos_y, obj_scale, cell_size.x, cell_size.y) # New nut instance
 	
 	obj_holder[indices.x][indices.y] = nut # Place in array
 	get_tree().root.add_child(nut) # Place in environment

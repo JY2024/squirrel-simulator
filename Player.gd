@@ -1,4 +1,4 @@
-extends Area2D
+extends KinematicBody2D
 
 export var speed = 400
 var screen_size
@@ -29,9 +29,10 @@ func _walk(delta):
 	else:
 		$AnimatedSprite.stop()
 		# Update player position
-	position += velocity * delta
-	position.x = clamp(position.x, 0, screen_size.x)
-	position.y = clamp(position.y, 0, screen_size.y)
+	move_and_collide(velocity)
+#	position += velocity * delta
+#	position.x = clamp(position.x, 0, screen_size.x)
+#	position.y = clamp(position.y, 0, screen_size.y)
 	
 	if velocity.x != 0:
 		$AnimatedSprite.animation = "default"

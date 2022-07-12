@@ -2,20 +2,7 @@
 
 [ext_resource path="res://NutHolder.gd" type="Script" id=1]
 
-[node name="NutHolder" type="Sprite"]
-position = Vector2( 506, 241 )
-scale = Vector2( 0.182495, 0.210753 )
+[node name="NutHolder" type="StaticBody2D"]
+position = Vector2( 528, 187 )
+scale = Vector2( 0.0856609, 0.0989249 )
 script = ExtResource( 1 )
-
-[node name="CannotPickUpTimer" type="Timer" parent="."]
-wait_time = 10.0
-one_shot = true
-autostart = true
-
-[node name="GrowIntoTreeTimer" type="Timer" parent="."]
-wait_time = 10.0
-one_shot = true
-
-[connection signal="picked_up" from="." to="." method="_on_Nut_picked_up"]
-[connection signal="timeout" from="CannotPickUpTimer" to="." method="_on_CannotPickUpTimer_timeout"]
-[connection signal="timeout" from="GrowIntoTreeTimer" to="." method="_on_GrowIntoTreeTimer_timeout"]

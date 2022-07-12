@@ -1,16 +1,26 @@
-extends Sprite
+extends StaticBody2D
 
 class_name NutHolder
-
-signal become_tree
 
 var pickup_available = false
 var no_pickup_timer
 var growing_tree_timer
 var my_scale
+var my_sprite
+var my_collision_shape
 
-func _init(position_x, position_y, scale):
-	my_scale = scale
+func _init(position_x, position_y, given_scale, width, height):
+	# Set scale, sprite, and collision shape
+	my_scale = given_scale
+	my_sprite = Sprite.new()
+	add_child(my_sprite)
+	var shape = RectangleShape2D.new()
+	shape.set_extents(Vector2(width / 2, height / 2))
+	my_collision_shape = CollisionShape2D.new()
+	my_collision_shape.set_shape(shape)
+	my_collision_shape.set_deferred("disabled", true)
+	add_child(my_collision_shape)
+	
 	_set_texture("res://art/dirt_patch.png")
 	# Set position
 	position.x = position_x
@@ -34,12 +44,11 @@ func _set_texture(path):
 #	# Set texture
 	var my_texture = ImageTexture.new()
 	my_texture.create_from_image(img)
-	self.set_texture(my_texture)
+	my_sprite.set_texture(my_texture)
 	self.scale = my_scale
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("Your path is " + get_path())
 	no_pickup_timer.start()
 
 func _process(delta):
@@ -47,12 +56,12 @@ func _process(delta):
 
 func _on_nopickup_timeout():
 	no_pickup_timer.stop()
-	self.modulate = Color(1, 0, 0)
+	my_sprite.modulate = Color(1, 0, 0)
 	pickup_available = true
 	growing_tree_timer.start()
 
 func _on_growing_timeout():
-	print("youve entered on growing timeout")
 	growing_tree_timer.stop()
 	pickup_available = false
 	_set_texture("res://art/tree_obst.png")
+	my_collision_shape.set_deferred("disabled", false)
