@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://art/squirrel.png" type="Texture" id=2]
 [ext_resource path="res://Bullet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://art/gun.png" type="Texture" id=4]
+[ext_resource path="res://Gun.gd" type="Script" id=5]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -36,3 +38,9 @@ shape = SubResource( 2 )
 [node name="EndOfGun" type="Position2D" parent="."]
 position = Vector2( -988, -332 )
 scale = Vector2( 0.25, 0.25 )
+
+[node name="Gun" type="Sprite" parent="."]
+position = Vector2( 180, 48 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+script = ExtResource( 5 )
