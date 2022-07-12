@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://art/nut.png" type="Texture" id=1]
+[ext_resource path="res://Bullet.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 29.5, 30.5 )
+
+[node name="Bullet" type="Area2D"]
+script = ExtResource( 2 )
+speed = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 284.5, 126.5 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 286, 125 )
+scale = Vector2( 0.1785, 0.164 )
+texture = ExtResource( 1 )
