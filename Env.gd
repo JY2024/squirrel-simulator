@@ -34,6 +34,7 @@ func _on_Env_nut_touched(position):
 	# if nothing there and nuts available, place nut
 	if obj == null && nuts > 0:
 		_plant_nut(indices)
+		nuts -= 1
 	# elif there is a nut and can pick up, pick up nut
 	elif obj != null && obj.pickup_available:
 		_pick_nut(indices)
@@ -60,7 +61,6 @@ func _plant_nut(indices):
 	
 	obj_holder[indices.x][indices.y] = nut # Place in array
 	get_tree().root.add_child(nut) # Place in environment
-#	get_node("CannotPickUpTimer").start()
 
 # Handle nut pick up on environment
 func _pick_nut(indices):
