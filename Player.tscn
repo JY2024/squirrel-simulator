@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://art/squirrel.png" type="Texture" id=2]
@@ -11,13 +11,17 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Player" type="Area2D"]
-position = Vector2( 139, 63 )
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 150.0
+
+[node name="Player" type="KinematicBody2D"]
+position = Vector2( 343, 149 )
 scale = Vector2( 0.25, 0.25 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
+speed = 10
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 5.37501, 1.22499 )
@@ -25,3 +29,4 @@ scale = Vector2( 0.691758, 0.701153 )
 frames = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )

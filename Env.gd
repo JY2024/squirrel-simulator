@@ -1,69 +1,71 @@
-extends TileMap
+extends Node2D
 
-# signal nut_touched
+# 20 x 12 grid squares
 
 onready var PlayerNode = get_node("../Player")
-var obj_holder
+export var nuts = 10
 var plant_held = false
+var obj_holder
+var cell_size
 
-# Called when the node enters the scene tree for the first time.
+# Resources
+var dirt_patch_img = preload("res://art/dirt_patch.png")
+var tree_obst_img = preload("res://art/tree_obst.png")
+
 func _ready():
-	PlayerNode.connect("nut_touched", self, "_on_Env_nut_touched")
-	# Array for tracking the placement of objects on the map
-	var cells_horizontal = floor((get_viewport_rect().size.x) / cell_size.x)
-	var cells_vertical = floor((get_viewport_rect().size.y) / cell_size.y)
-	obj_holder = []
-	for _x in range(cells_horizontal):
+	# Members
+	cell_size = Vector2(get_viewport_rect().size.x / 20, get_viewport_rect().size.y / 12)
+	
+	obj_holder = [] # Array for tracking the placement of objects on the map
+	for _x in range(20):
 		var col = []
-		col.resize(cells_vertical)
+		col.resize(12)
 		obj_holder.append(col)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	if Input.is_action_just_pressed("nut_action"):
+		_on_Env_nut_touched(PlayerNode.position)
+	
 
-func _on_Env_nut_touched():
-	if !plant_held:
-		plant_held = true
-		var position = PlayerNode.position
-		var indices = _position_to_index(position)
-		var obj = obj_holder[indices[0]][indices[1]]
-		if obj == null: # Empty
-			if PlayerNode.nuts > 0:
-				_plant_nut(indices[0], indices[1])
-				PlayerNode.nuts -= 1
-		elif obj != -1 && obj.pickup_available: # Error here
-			# Remove nut here
-			# HUD display of score increases
-			pass
-		plant_held = false
+# Handle behavior when player attempts to plant or pick up a nut
+func _on_Env_nut_touched(position):
+	var indices = _position_to_index(position)
+	var obj = obj_holder[indices.x][indices.y]
+	# if nothing there and nuts available, place nut
+	if obj == null && nuts > 0:
+		_plant_nut(indices, dirt_patch_img, "nut")
+		nuts -= 1
+	# elif there is a nut and can pick up, pick up nut
+	elif obj != null && obj.pickup_available:
+		_pick_nut(indices)
+		# increase score and such
 
+# Convert window position to grid indices
 func _position_to_index(position):
 	var x = int(round(stepify(position.x, cell_size.x) / cell_size.x))
 	var y = int(round(stepify(position.y, cell_size.y) / cell_size.y))
-	return [x, y]
+	if x == 20:
+		x -= 1
+	if y == 12:
+		y -= 1
+	return Vector2(x, y)
 
-func _plant_nut(index_x, index_y):
-	# Make a tile
+# Handle nut placement on environment
+func _plant_nut(indices, img, scale):
+	# Calculate position
+	var pos_x = (cell_size.x * indices.x) + (cell_size.x / 2)
+	var pos_y = (cell_size.y * indices.y) + (cell_size.y / 2)
 	
-#	var id = tile_set.get_last_unused_tile_id()
-#	print("Your id is: %d", id)
-#	tile_set.create_tile(id)
-#	var my_rect = Rect2(Vector2(index_x * cell_size.x, index_y * cell_size.y), Vector2(cell_size))
-#	print("your current position is: %d by %d. Your rect position is: %d by %d; Your rect size is: %d by %d", PlayerNode.position.x, PlayerNode.position.y, my_rect.position.x, my_rect.position.y, my_rect.size.x, my_rect.size.y)
-#	tile_set.tile_set_region(id, my_rect)
-#
-#	# var tile_index = get_cellv(position)
-#	var dirt_texture = load("res://art/dirt_patch.png")
-#	tile_set.tile_set_texture(id, dirt_texture)
-#
-#	print("youre here")
+	# Scale
+	var obj_scale = Vector2(get_viewport_rect().size.x / (img.get_size().x * 20), get_viewport_rect().size.y / (img.get_size().y * 12))
 	
-	var nut = Sprite.new()
-	nut.texture = load("res://art/dirt_patch.png")
-	self.add_child(nut)
-	nut.position.x = PlayerNode.position.x
-	nut.position.y = PlayerNode.position.y
+	var nut = NutHolder.new(pos_x, pos_y, obj_scale, cell_size.x, cell_size.y) # New nut instance
 	
-	obj_holder[index_x][index_y] = NutHolder.new(nut.position.x, nut.position.y)
-	
+	obj_holder[indices.x][indices.y] = nut # Place in array
+	get_tree().root.add_child(nut) # Place in environment
+
+# Handle nut pick up on environment
+func _pick_nut(indices):
+	get_tree().root.remove_child(obj_holder[indices.x][indices.y]) # Remove from environment
+	obj_holder[indices.x][indices.y] = null # Remove from array
