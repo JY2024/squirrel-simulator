@@ -10,6 +10,7 @@ var cell_size
 
 # Resources
 var dirt_patch_img = preload("res://art/dirt_patch.png")
+var tree_obst_img = preload("res://art/tree_obst.png")
 
 func _ready():
 	# Members
@@ -25,19 +26,20 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("nut_action"):
 		_on_Env_nut_touched(PlayerNode.position)
+	
 
 # Handle behavior when player attempts to plant or pick up a nut
 func _on_Env_nut_touched(position):
 	var indices = _position_to_index(position)
-	print("position is (" + str(position.x) + " , " + str(position.y) + ")\nand index is " + str(indices.x) + " , " + str(indices.y))
 	var obj = obj_holder[indices.x][indices.y]
 	# if nothing there and nuts available, place nut
 	if obj == null && nuts > 0:
-		_plant_nut(indices)
+		_plant_nut(indices, dirt_patch_img, "nut")
 		nuts -= 1
 	# elif there is a nut and can pick up, pick up nut
 	elif obj != null && obj.pickup_available:
 		_pick_nut(indices)
+		# increase score and such
 
 # Convert window position to grid indices
 func _position_to_index(position):
@@ -50,14 +52,15 @@ func _position_to_index(position):
 	return Vector2(x, y)
 
 # Handle nut placement on environment
-func _plant_nut(indices):
+func _plant_nut(indices, img, scale):
 	# Calculate position
 	var pos_x = (cell_size.x * indices.x) + (cell_size.x / 2)
 	var pos_y = (cell_size.y * indices.y) + (cell_size.y / 2)
 	
-	var nut = NutHolder.new(pos_x, pos_y) # New nut instance
-	# Scale nut
-	nut.scale = Vector2(get_viewport_rect().size.x / (dirt_patch_img.get_size().x * 20), get_viewport_rect().size.y / (dirt_patch_img.get_size().y * 12))
+	# Scale
+	var obj_scale = Vector2(get_viewport_rect().size.x / (img.get_size().x * 20), get_viewport_rect().size.y / (img.get_size().y * 12))
+	
+	var nut = NutHolder.new(pos_x, pos_y, obj_scale) # New nut instance
 	
 	obj_holder[indices.x][indices.y] = nut # Place in array
 	get_tree().root.add_child(nut) # Place in environment
