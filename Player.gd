@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal bullet_fired(bullet, position, direction)
+
 export var speed = 400
 export (PackedScene) var Bullet
 
@@ -33,6 +35,8 @@ func _walk(delta):
 		$AnimatedSprite.stop()
 		# Update player position
 	move_and_collide(velocity)
+	position.x = clamp(position.x, 0, screen_size.x)
+	position.y = clamp(position.y, 0, screen_size.y)
 	
 	if velocity.x != 0:
 		$AnimatedSprite.animation = "default"
@@ -44,12 +48,11 @@ func _unhandled_input(event):
 
 func _shoot():
 	var this_bullet = Bullet.instance()
-	add_child(this_bullet)
-	this_bullet.global_position = end_of_gun.global_position
 	var target
 	if $AnimatedSprite.flip_h == true:
-		target = Vector2(this_bullet.global_position.x - 20, this_bullet.global_position.y)
+		target = Vector2(end_of_gun.global_position.x - 20, end_of_gun.global_position.y)
 	else:
-		target = Vector2(this_bullet.global_position.x + 20, this_bullet.global_position.y)
-	var direction = this_bullet.global_position.direction_to(target).normalized()
-	this_bullet._set_direction(direction)
+		target = Vector2(end_of_gun.global_position.x + 20, end_of_gun.global_position.y)
+	var direction = end_of_gun.global_position.direction_to(target).normalized()
+	
+	emit_signal("bullet_fired", this_bullet, end_of_gun.global_position, direction)
