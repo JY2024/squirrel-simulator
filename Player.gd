@@ -5,7 +5,8 @@ signal bullet_fired(bullet, position, direction)
 export var speed = 400
 export (PackedScene) var Bullet
 
-onready var end_of_gun = $EndOfGun
+onready var end_of_gun = get_node("Gun/EndOfGun")
+onready var target = get_node("Gun/Target")
 var screen_size
 
 # Runs upon entering the scene tree
@@ -48,11 +49,5 @@ func _unhandled_input(event):
 
 func _shoot():
 	var this_bullet = Bullet.instance()
-	var target
-	if $AnimatedSprite.flip_h == true:
-		target = Vector2(end_of_gun.global_position.x - 20, end_of_gun.global_position.y)
-	else:
-		target = Vector2(end_of_gun.global_position.x + 20, end_of_gun.global_position.y)
-	var direction = end_of_gun.global_position.direction_to(target).normalized()
-	
+	var direction = end_of_gun.global_position.direction_to(target.global_position).normalized()
 	emit_signal("bullet_fired", this_bullet, end_of_gun.global_position, direction)
