@@ -4,5 +4,4 @@
 
 [node name="NutHolder" type="StaticBody2D"]
 position = Vector2( 528, 187 )
-scale = Vector2( 0.0856609, 0.0989249 )
 script = ExtResource( 1 )

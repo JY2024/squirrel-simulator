@@ -23,8 +23,8 @@ func _init(position_x, position_y, given_scale, width, height):
 	
 	_set_texture("res://art/dirt_patch.png")
 	# Set position
-	position.x = position_x
-	position.y = position_y
+	global_position.x = position_x
+	global_position.y = position_y
 	# Set timers
 	no_pickup_timer = Timer.new()
 	add_child(no_pickup_timer)
