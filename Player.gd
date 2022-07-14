@@ -10,11 +10,17 @@ var screen_size
 
 # Runs upon entering the scene tree
 func _ready():
+	hide()
 	screen_size = get_viewport_rect().size
 
 # Called every frame
 func _process(delta):
 	_walk(delta)
+	
+func _start(pos):
+	global_position = pos
+	show()
+	$CollisionShape2D.disabled = false
 
 func _walk(delta):
 	var velocity = Vector2.ZERO # Player movement vector

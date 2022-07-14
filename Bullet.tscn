@@ -6,7 +6,8 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 9.5, 11 )
 
-[node name="Bullet" type="Area2D"]
+[node name="Bullet" type="RigidBody2D"]
+gravity_scale = 0.0
 script = ExtResource( 2 )
 speed = 10
 

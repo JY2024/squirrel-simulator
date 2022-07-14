@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://art/angry_dog2.png" type="Texture" id=1]
+[ext_resource path="res://Mob.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 38.5, 33 )
+
+[node name="Mob" type="RigidBody2D"]
+position = Vector2( 561, 247 )
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -24.5, -4 )
+scale = Vector2( 0.159091, 0.131783 )
+texture = ExtResource( 1 )
+region_rect = Rect2( 127.836, 28.9777, 365.861, 333.484 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -24.5, -4 )
+shape = SubResource( 1 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( -23, -4 )
+scale = Vector2( 0.000937768, 0.00500001 )
+
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

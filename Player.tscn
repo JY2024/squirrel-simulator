@@ -7,8 +7,8 @@
 [ext_resource path="res://Gun.gd" type="Script" id=5]
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 187.0
-height = 56.0
+radius = 27.0
+height = 0.0
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 318, 270 )
@@ -30,7 +30,7 @@ region_rect = Rect2( 31.9543, 27.8254, 390.597, 434.439 )
 shape = SubResource( 2 )
 
 [node name="Gun" type="Sprite" parent="."]
-position = Vector2( 278, 52 )
+position = Vector2( 280, 48 )
 texture = ExtResource( 4 )
 script = ExtResource( 5 )
 
