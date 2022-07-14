@@ -1,12 +1,11 @@
 extends KinematicBody2D
 
-signal bullet_fired(bullet, position, direction)
+signal bullet_fired(bullet, given_position, direction)
 
 export var speed = 400
 export (PackedScene) var Bullet
 
-onready var end_of_gun = get_node("Gun/EndOfGun")
-onready var target = get_node("Gun/Target")
+onready var end_of_gun = $EndOfGun
 var screen_size
 
 # Runs upon entering the scene tree
@@ -31,17 +30,13 @@ func _walk(delta):
 		# Play animation
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed # Adjust length with desired speed
-		$AnimatedSprite.play()
-	else:
-		$AnimatedSprite.stop()
 		# Update player position
 	move_and_collide(velocity)
-	position.x = clamp(position.x, 0, screen_size.x)
-	position.y = clamp(position.y, 0, screen_size.y)
+	global_position.x = clamp(global_position.x, 0, screen_size.x)
+	global_position.y = clamp(global_position.y, 0, screen_size.y)
 	
 	if velocity.x != 0:
-		$AnimatedSprite.animation = "default"
-		$AnimatedSprite.flip_h = velocity.x < 0 # Flip image
+		$Sprite.flip_h = velocity.x < 0 # Flip image
 
 func _unhandled_input(event):
 	if event.is_action_pressed("shoot"):
@@ -49,5 +44,10 @@ func _unhandled_input(event):
 
 func _shoot():
 	var this_bullet = Bullet.instance()
-	var direction = end_of_gun.global_position.direction_to(target.global_position).normalized()
+	var target
+	if $Sprite.flip_h == true:
+		target = Vector2(end_of_gun.global_position.x - 20, end_of_gun.global_position.y)
+	else:
+		target = Vector2(end_of_gun.global_position.x + 20, end_of_gun.global_position.y)
+	var direction = end_of_gun.global_position.direction_to(target).normalized()
 	emit_signal("bullet_fired", this_bullet, end_of_gun.global_position, direction)

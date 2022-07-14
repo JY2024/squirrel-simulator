@@ -1,6 +1,6 @@
 extends Area2D
 
-export var speed = 20
+export var speed = 1
 var direction = Vector2.ZERO
 
 func _ready():
