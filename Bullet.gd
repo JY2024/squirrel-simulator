@@ -1,4 +1,4 @@
-extends Area2D
+extends RigidBody2D
 
 export var speed = 1
 var direction = Vector2.ZERO
