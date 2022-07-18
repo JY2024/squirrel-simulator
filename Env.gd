@@ -2,8 +2,12 @@ extends Node2D
 
 # 20 x 12 grid squares
 
+signal nut_picked(score)
+signal nut_planted(nuts)
+
 onready var PlayerNode = get_node("../Player")
 export var nuts = 10
+var score = 0
 var plant_held = false
 var obj_holder
 var cell_size
@@ -34,8 +38,10 @@ func _on_Env_nut_touched(position):
 	var obj = obj_holder[indices.x][indices.y]
 	# if nothing there and nuts available, place nut
 	if obj == null && nuts > 0:
-		_plant_nut(indices, dirt_patch_img, "nut")
 		nuts -= 1
+		_plant_nut(indices, dirt_patch_img, "nut")
+		if nuts >= 0:
+			emit_signal("nut_planted")
 	# elif there is a nut and can pick up, pick up nut
 	elif obj != null && obj.pickup_available:
 		_pick_nut(indices)
@@ -64,8 +70,12 @@ func _plant_nut(indices, img, scale):
 	
 	obj_holder[indices.x][indices.y] = nut # Place in array
 	get_tree().root.add_child(nut) # Place in environment
+	
+	emit_signal("nut_planted", nuts)
 
 # Handle nut pick up on environment
 func _pick_nut(indices):
 	get_tree().root.remove_child(obj_holder[indices.x][indices.y]) # Remove from environment
 	obj_holder[indices.x][indices.y] = null # Remove from array
+	score += 1
+	emit_signal("nut_picked", score)

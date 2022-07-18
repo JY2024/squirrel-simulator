@@ -3,17 +3,22 @@ extends Node
 export (PackedScene) var mob_scene
 onready var bullet_manager = $BulletManager
 onready var player = $Player
+onready var environment = $Env
+onready var hud = $HUD
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player.connect("bullet_fired", bullet_manager, "_on_bullet_fired")
+	environment.connect("nut_picked", hud, "_update_score")
+	environment.connect("nut_planted", hud, "_update_nuts")
 	randomize()
-	_new_game()
 	
 func _new_game():
 	player._start(player.global_position)
+	$HUD._update_score(0)
+	$HUD._update_nuts(environment.nuts)
+	$HUD._display_message("Are you ready?")
 	$MobTimer.start()
-
 
 func _on_MobTimer_timeout():
 	var mob = mob_scene.instance()
@@ -25,7 +30,13 @@ func _on_MobTimer_timeout():
 	direction += rand_range(-PI / 4, PI / 4)
 	mob.rotation = direction
 	
-	var velocity = Vector2(rand_range(150.0, 250.0), 0.0)
+	var velocity = Vector2(rand_range(300.0, 450.0), 0.0)
 	mob.linear_velocity = velocity.rotated(direction)
 	
 	self.add_child(mob)
+	
+func _game_over():
+	$HUD._display_gameover()
+
+func _on_ScoreTimer_timeout():
+	$HUD.update_score(environment.score)
