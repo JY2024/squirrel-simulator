@@ -40,7 +40,7 @@ func _on_MobTimer_timeout():
 	
 	self.add_child(mob)
 	
-	self.connect("game_over", mob, "_on_game_over")
+	self.connect("game_over", mob, "_remove_self")
 	
 func _game_over():
 	emit_signal("game_over")
