@@ -53,4 +53,4 @@ one_shot = true
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
 [connection signal="start_game" from="HUD" to="." method="_new_game"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
-[connection signal="timeout" from="GameDurationTimer" to="." method="_on_GameDurationTimer_timeout"]
+[connection signal="timeout" from="GameDurationTimer" to="." method="_game_over"]

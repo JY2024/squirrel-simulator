@@ -24,10 +24,6 @@ func _display_gameover():
 	$Message.show()
 	$StartButton.show()
 
-func _update_score(score):
-	$ScoreLabel.text = "Score: " + str(score)
-
-
 func _on_StartButton_pressed():
 	$StartButton.hide()
 	emit_signal("start_game")
