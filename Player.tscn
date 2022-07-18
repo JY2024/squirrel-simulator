@@ -1,20 +1,21 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
-[ext_resource path="res://art/squirrel.png" type="Texture" id=2]
+[ext_resource path="res://art/squirrel_2.png" type="Texture" id=2]
 [ext_resource path="res://Bullet.tscn" type="PackedScene" id=3]
-[ext_resource path="res://art/gun.png" type="Texture" id=4]
+[ext_resource path="res://art/gun_2.png" type="Texture" id=4]
 [ext_resource path="res://Gun.gd" type="Script" id=5]
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 27.0
+radius = 200.0
 height = 0.0
 
 [sub_resource type="CapsuleShape2D" id=3]
-radius = 200.0
+radius = 208.0
+height = 128.0
 
 [node name="Player" type="KinematicBody2D"]
-position = Vector2( 283, 250 )
+position = Vector2( 280, 250 )
 scale = Vector2( 0.125, 0.125 )
 collision_mask = 0
 script = ExtResource( 1 )
@@ -28,13 +29,14 @@ Bullet = ExtResource( 3 )
 position = Vector2( -0.187464, -0.612493 )
 texture = ExtResource( 2 )
 region_enabled = true
-region_rect = Rect2( 31.9543, 27.8254, 390.597, 434.439 )
+region_rect = Rect2( -1.93457, -6.01005, 468.194, 503.25 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
 
 [node name="Gun" type="Sprite" parent="."]
-position = Vector2( 280, 48 )
+position = Vector2( 320, 40.0001 )
+scale = Vector2( 0.586, 0.532528 )
 texture = ExtResource( 4 )
 script = ExtResource( 5 )
 
