@@ -56,7 +56,7 @@ func _process(delta):
 
 func _on_nopickup_timeout():
 	no_pickup_timer.stop()
-	my_sprite.modulate = Color(1, 0, 0)
+	my_sprite.modulate = Color(0, 1, 0)
 	pickup_available = true
 	growing_tree_timer.start()
 
