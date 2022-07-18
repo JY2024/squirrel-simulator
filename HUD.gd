@@ -4,11 +4,6 @@ signal start_game
 
 onready var game_duration_timer = get_node("../GameDurationTimer")
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -28,6 +23,10 @@ func _display_gameover():
 	$Message.text = "Plant The Nuts\nDon't Die!"
 	$Message.show()
 	$StartButton.show()
+
+func _update_score(score):
+	$ScoreLabel.text = "Score: " + str(score)
+
 
 func _on_StartButton_pressed():
 	$StartButton.hide()

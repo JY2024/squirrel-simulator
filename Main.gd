@@ -38,7 +38,7 @@ func _on_MobTimer_timeout():
 	mob.linear_velocity = velocity.rotated(direction)
 	
 	self.add_child(mob)
-	
+
 	self.connect("game_over", mob, "_on_game_over")
 	
 func _game_over():
@@ -51,3 +51,9 @@ func _on_ScoreTimer_timeout():
 
 func _on_GameDurationTimer_timeout():
 	_game_over()
+
+func _game_over():
+	$HUD._display_gameover()
+
+func _on_ScoreTimer_timeout():
+	$HUD.update_score(score)
