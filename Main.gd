@@ -11,6 +11,7 @@ onready var hud = $HUD
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player.connect("bullet_fired", bullet_manager, "_on_bullet_fired")
+	player.connect("hit", self, "_game_over")
 	environment.connect("nut_picked", hud, "_update_score")
 	environment.connect("nut_planted", hud, "_update_nuts")
 	randomize()
@@ -38,22 +39,14 @@ func _on_MobTimer_timeout():
 	mob.linear_velocity = velocity.rotated(direction)
 	
 	self.add_child(mob)
-
-	self.connect("game_over", mob, "_on_game_over")
+	
+	self.connect("game_over", mob, "_remove_self")
 	
 func _game_over():
 	emit_signal("game_over")
 	$MobTimer.stop()
+	$GameDurationTimer.stop()
 	$HUD._display_gameover()
 
 func _on_ScoreTimer_timeout():
 	$HUD.update_score(environment.score)
-
-func _on_GameDurationTimer_timeout():
-	_game_over()
-
-func _game_over():
-	$HUD._display_gameover()
-
-func _on_ScoreTimer_timeout():
-	$HUD.update_score(score)

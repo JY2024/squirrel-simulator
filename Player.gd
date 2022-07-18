@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 signal bullet_fired(bullet, given_position, direction)
+signal hit
 
 export var speed = 400
 export (PackedScene) var Bullet
@@ -20,7 +21,7 @@ func _process(delta):
 func _start(pos):
 	global_position = pos
 	show()
-	$CollisionShape2D.disabled = false
+	$CollisionShape2D.set_deferred("disabled", false)
 
 func _walk(delta):
 	var velocity = Vector2.ZERO # Player movement vector
@@ -57,3 +58,9 @@ func _shoot():
 		target = Vector2(end_of_gun.global_position.x + 20, end_of_gun.global_position.y)
 	var direction = end_of_gun.global_position.direction_to(target).normalized()
 	emit_signal("bullet_fired", this_bullet, end_of_gun.global_position, direction)
+
+
+func _on_Area2D_area_entered(area):
+	hide()
+	emit_signal("hit")
+	$CollisionShape2D.set_deferred("disabled", true)

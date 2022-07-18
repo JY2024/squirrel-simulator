@@ -21,3 +21,9 @@ scale = Vector2( 0.0540513, 0.0569771 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 92.4985, 13.8927, 307.67, 447.519 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 256.5, 95 )
+shape = SubResource( 1 )
