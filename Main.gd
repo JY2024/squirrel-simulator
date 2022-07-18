@@ -19,6 +19,7 @@ func _new_game():
 	$HUD._update_nuts(environment.nuts)
 	$HUD._display_message("Are you ready?")
 	$MobTimer.start()
+	$GameDurationTimer.start()
 
 func _on_MobTimer_timeout():
 	var mob = mob_scene.instance()
@@ -40,3 +41,7 @@ func _game_over():
 
 func _on_ScoreTimer_timeout():
 	$HUD.update_score(environment.score)
+
+
+func _on_GameDurationTimer_timeout():
+	_game_over()
