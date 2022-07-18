@@ -1,5 +1,7 @@
 extends Node
 
+signal game_over
+
 export (PackedScene) var mob_scene
 onready var bullet_manager = $BulletManager
 onready var player = $Player
@@ -14,6 +16,7 @@ func _ready():
 	randomize()
 	
 func _new_game():
+	environment.nuts = environment.nut_limit
 	player._start(player.global_position)
 	$HUD._update_score(0)
 	$HUD._update_nuts(environment.nuts)
@@ -36,12 +39,15 @@ func _on_MobTimer_timeout():
 	
 	self.add_child(mob)
 	
+	self.connect("game_over", mob, "_on_game_over")
+	
 func _game_over():
+	emit_signal("game_over")
+	$MobTimer.stop()
 	$HUD._display_gameover()
 
 func _on_ScoreTimer_timeout():
 	$HUD.update_score(environment.score)
-
 
 func _on_GameDurationTimer_timeout():
 	_game_over()

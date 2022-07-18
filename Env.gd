@@ -6,7 +6,8 @@ signal nut_picked(score)
 signal nut_planted(nuts)
 
 onready var PlayerNode = get_node("../Player")
-export var nuts = 10
+export var nut_limit = 10
+var nuts = nut_limit
 var score = 0
 var plant_held = false
 var obj_holder
