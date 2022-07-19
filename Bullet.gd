@@ -6,7 +6,7 @@ var direction = Vector2.ZERO
 func _ready():
 	get_node("Area2D/CollisionShape2D").set_deferred("disabled", true)
 	var visible_timer = Timer.new()
-	visible_timer.set_wait_time(0.5)
+	visible_timer.set_wait_time(0.2)
 	visible_timer.set_one_shot(true)
 	self.add_child(visible_timer)
 	visible_timer.start()

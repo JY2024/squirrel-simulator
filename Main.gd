@@ -17,6 +17,7 @@ func _ready():
 	randomize()
 	
 func _new_game():
+	$BackgroundMusic.play()
 	environment.nuts = environment.nut_limit
 	player._start(player.global_position)
 	$HUD._update_score(0)
@@ -43,6 +44,7 @@ func _on_MobTimer_timeout():
 	self.connect("game_over", mob, "_remove_self")
 	
 func _game_over():
+	$BackgroundMusic.stop()
 	emit_signal("game_over")
 	$MobTimer.stop()
 	$GameDurationTimer.stop()
