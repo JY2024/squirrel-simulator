@@ -45,6 +45,7 @@ func _on_MobTimer_timeout():
 	
 func _game_over():
 	$BackgroundMusic.stop()
+	$GameOverSound.play()
 	emit_signal("game_over")
 	$MobTimer.stop()
 	$GameDurationTimer.stop()
