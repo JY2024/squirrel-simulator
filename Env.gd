@@ -1,25 +1,21 @@
+# Env - Handles nut planting and picking behavior in the game environment
 extends Node2D
-
-# 20 x 12 grid squares
 
 signal nut_picked(score)
 signal nut_planted(nuts)
 
-onready var PlayerNode = get_node("../Player")
 export var nut_limit = 30
+onready var PlayerNode = get_node("../Player")
 var nuts = nut_limit
 var score = 0
-var plant_held = false
-var obj_holder
-var cell_size
-
+var obj_holder # Holds the nuts planted / trees, array
+var cell_size # For a 20 x 12 grid, Vector2
 # Resources
 var dirt_patch_img = preload("res://art/dirt_patch.png")
 var tree_obst_img = preload("res://art/tree_obst.png")
 
 func _ready():
-	# Members
-	cell_size = Vector2(get_viewport_rect().size.x / 20, get_viewport_rect().size.y / 12)
+	cell_size = Vector2(get_viewport_rect().size.x / 20, get_viewport_rect().size.y / 12) # 20 x 12 grid squares
 	
 	obj_holder = [] # Array for tracking the placement of objects on the map
 	for _x in range(20):
@@ -27,39 +23,25 @@ func _ready():
 		col.resize(12)
 		obj_holder.append(col)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("nut_action"):
 		_on_Env_nut_touched(PlayerNode.position)
-	
 
-# Handle behavior when player attempts to plant or pick up a nut
+# Handles behavior when player attempts to plant or pick up a nut
+# _on_Env_nut_touched(position: Vector2): void
 func _on_Env_nut_touched(position):
 	var indices = _position_to_index(position)
 	var obj = obj_holder[indices.x][indices.y]
-	# if nothing there and nuts available, place nut
-	if obj == null && nuts > 0:
+	if obj == null && nuts > 0: # if nothing there and nuts available, place nut
 		nuts -= 1
-		_plant_nut(indices, dirt_patch_img, "nut")
-		if nuts >= 0:
-			emit_signal("nut_planted")
-	# elif there is a nut and can pick up, pick up nut
-	elif obj != null && obj.pickup_available:
+		_plant_nut(indices, dirt_patch_img)
+		emit_signal("nut_planted")
+	elif obj != null && obj.pickup_available: # if there is a nut and can pick up, pick up nut
 		_pick_nut(indices)
-		# increase score and such
 
-# Convert window position to grid indices
-func _position_to_index(position):
-	var x = int(round(stepify(position.x, cell_size.x) / cell_size.x))
-	var y = int(round(stepify(position.y, cell_size.y) / cell_size.y))
-	if x == 20:
-		x -= 1
-	if y == 12:
-		y -= 1
-	return Vector2(x, y)
-
-# Handle nut placement on environment
-func _plant_nut(indices, img, scale):
+# Handles nut placement on environment
+# _plant_nut(indices: Vector2, img: Image): void
+func _plant_nut(indices, img):
 	# Calculate position
 	var pos_x = (cell_size.x * indices.x) + (cell_size.x / 2)
 	var pos_y = (cell_size.y * indices.y) + (cell_size.y / 2)
@@ -74,9 +56,22 @@ func _plant_nut(indices, img, scale):
 	
 	emit_signal("nut_planted", nuts)
 
-# Handle nut pick up on environment
+# Handles nut pick up behavior
+# _pick_nut(indices: Vector2): void
 func _pick_nut(indices):
 	get_tree().root.remove_child(obj_holder[indices.x][indices.y]) # Remove from environment
 	obj_holder[indices.x][indices.y] = null # Remove from array
 	score += 1
 	emit_signal("nut_picked", score)
+
+# Converts window position to grid indices
+# _position_to_index(position: Vector2): Vector2
+func _position_to_index(position):
+	var x = int(round(stepify(position.x, cell_size.x) / cell_size.x))
+	var y = int(round(stepify(position.y, cell_size.y) / cell_size.y))
+	# Handle bound issues
+	if x == 20:
+		x -= 1
+	if y == 12:
+		y -= 1
+	return Vector2(x, y)
