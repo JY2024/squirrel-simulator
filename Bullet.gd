@@ -1,14 +1,14 @@
 # Bullet - Movement of bullet
 extends RigidBody2D
 
-export var speed = 1
+export var speed = 50
 var direction = Vector2.ZERO
 
 func _ready():
 	get_node("Area2D/CollisionShape2D").set_deferred("disabled", true) # So Player cannot be killed by Bullet
 	# Wait
 	var visible_timer = Timer.new()
-	visible_timer.set_wait_time(0.2)
+	visible_timer.set_wait_time(0.01)
 	visible_timer.set_one_shot(true)
 	self.add_child(visible_timer)
 	visible_timer.start()
