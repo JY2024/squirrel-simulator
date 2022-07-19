@@ -49,7 +49,7 @@ wait_time = 0.5
 [node name="ScoreTimer" type="Timer" parent="."]
 
 [node name="GameDurationTimer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 50.0
 one_shot = true
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
