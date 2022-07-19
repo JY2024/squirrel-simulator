@@ -20,9 +20,9 @@ func _new_game():
 	$BackgroundMusic.play()
 	environment.nuts = environment.nut_limit
 	player._start(player.global_position)
-	$HUD._update_score(0)
-	$HUD._update_nuts(environment.nuts)
-	$HUD._display_message("Are you ready?")
+	hud._update_score(0)
+	hud._update_nuts(environment.nuts)
+	hud._display_message("Are you ready?")
 	$MobTimer.start()
 	$GameDurationTimer.start()
 
@@ -49,7 +49,8 @@ func _game_over():
 	emit_signal("game_over")
 	$MobTimer.stop()
 	$GameDurationTimer.stop()
-	$HUD._display_gameover()
+	hud._display_gameover()
+	
 
 func _on_ScoreTimer_timeout():
-	$HUD.update_score(environment.score)
+	hud.update_score(environment.score)

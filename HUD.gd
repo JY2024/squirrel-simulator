@@ -15,6 +15,7 @@ func _display_message(message):
 	$Message.text = message
 	$Message.show()
 	$MessageTimer.start()
+	$InstructionsLabel.hide()
 
 func _display_gameover():
 	_display_message("Game Over!")
@@ -23,6 +24,8 @@ func _display_gameover():
 	$Message.text = "Plant The Nuts\nDon't Die!"
 	$Message.show()
 	$StartButton.show()
+	
+	$InstructionsLabel.show()
 
 func _on_StartButton_pressed():
 	$StartButton.hide()

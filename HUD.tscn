@@ -49,6 +49,21 @@ Don't Die!"
 align = 1
 autowrap = true
 
+[node name="InstructionsLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 152.0
+margin_top = 551.0
+margin_right = 1010.0
+margin_bottom = 872.0
+rect_scale = Vector2( 0.566735, 0.524965 )
+custom_fonts/font = SubResource( 1 )
+text = "ARROW KEYS to MOVE
+SHIFT to PLANT/PICKUP
+SPACE to SHOOT
+"
+align = 1
+
 [node name="StartButton" type="Button" parent="."]
 anchor_left = 0.5
 anchor_top = 1.0
