@@ -21,6 +21,7 @@ func _ready():
 # Handles starting a new game
 # _new_game(): void
 func _new_game():
+	environment.score = 0
 	$BackgroundMusic.play()
 	player._start(player.global_position) # Set player position
 	environment.nuts = environment.nut_limit # Reset nut count
