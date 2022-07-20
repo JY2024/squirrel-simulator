@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
-[ext_resource path="res://art/squirrel.png" type="Texture" id=2]
+[ext_resource path="res://visual_resources/squirrel.png" type="Texture" id=2]
 [ext_resource path="res://Bullet.tscn" type="PackedScene" id=3]
-[ext_resource path="res://art/gun.png" type="Texture" id=4]
+[ext_resource path="res://visual_resources/gun.png" type="Texture" id=4]
 [ext_resource path="res://Gun.gd" type="Script" id=5]
 
 [sub_resource type="CapsuleShape2D" id=2]
@@ -22,8 +22,8 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-speed = 10
 Bullet = ExtResource( 3 )
+speed = 10
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -0.187464, -0.612493 )
