@@ -1,14 +1,14 @@
 # Squirrel Simulator
 
-(Download link)
-This is a game in which the player is a squirrel that protects its nuts from monsters.
+(Download link)\n
+This is a game in which the player is a squirrel that protects its nuts from monsters.\n
 
-Language: GDScript
+Language: GDScript\n
 
-## Screenshots
-(Screenshots)
+## Screenshots\n
+(Screenshots)\n
 
 ## License and Copyright Info
-MIT License
-Background music by bensound.com
-Font is "Xolonium". Copyright © 2011-2016 Severin Meyer sev.ch@web.de, with Reserved Font Name Xolonium, SIL open font license version 1.1.
+MIT License\n
+Background music by bensound.com\n
+Font is "Xolonium". Copyright © 2011-2016 Severin Meyer sev.ch@web.de, with Reserved Font Name Xolonium, SIL open font license version 1.1.\n
