@@ -8,7 +8,7 @@ Language: GDScript
 
 ## Screenshots
 
-![Screenshot of opening screen](screenshots/squirrel_screenshot1.png?raw=true)
+![Screenshot of opening screen](screenshots/squirrel_screenshot1.png?raw=true)\
 
 ![Screenshot of gameplay](screenshots/squirrel_screenshot2.png.png?raw=true)
 
