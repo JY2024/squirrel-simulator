@@ -3,6 +3,7 @@ extends Node2D
 
 signal nut_picked(score)
 signal nut_planted(nuts)
+signal clear_screen
 
 export var nut_limit = 30
 onready var PlayerNode = get_node("../Player")
@@ -59,10 +60,16 @@ func _plant_nut(indices, img):
 # Handles nut pick up behavior
 # _pick_nut(indices: Vector2): void
 func _pick_nut(indices):
-	get_tree().root.remove_child(obj_holder[indices.x][indices.y]) # Remove from environment
-	obj_holder[indices.x][indices.y] = null # Remove from array
+	_remove_obj(indices)
 	score += 1
 	emit_signal("nut_picked", score)
+
+# Removes the nut / tree
+# _remove_obj(indices: Vector2): void
+func _remove_obj(indices):
+	if obj_holder[indices.x][indices.y] != null:
+		get_tree().root.remove_child(obj_holder[indices.x][indices.y]) # Remove from environment
+		obj_holder[indices.x][indices.y] = null # Remove from array
 
 # Converts window position to grid indices
 # _position_to_index(position: Vector2): Vector2
@@ -75,3 +82,10 @@ func _position_to_index(position):
 	if y == 12:
 		y -= 1
 	return Vector2(x, y)
+
+# Notifies nutHolders to clear themselves
+# _clear(): void
+func _on_clear_screen():
+	for i in range(20):
+		for j in range(12):
+			_remove_obj(Vector2(i - 1, j - 1))

@@ -15,6 +15,7 @@ func _ready():
 	player.connect("hit", self, "_game_over")
 	environment.connect("nut_picked", hud, "_update_score")
 	environment.connect("nut_planted", hud, "_update_nuts")
+	hud.connect("clear_screen", environment, "_on_clear_screen")
 	randomize() # Initialize random seed
 
 # Handles starting a new game

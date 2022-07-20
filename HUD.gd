@@ -2,6 +2,7 @@
 extends CanvasLayer
 
 signal start_game
+signal clear_screen
 
 onready var game_duration_timer = get_node("../GameDurationTimer") # GameDurationTimer
 
@@ -14,6 +15,7 @@ func _display_message(message):
 	$Message.text = message
 	$Message.show()
 	$InstructionsLabel.hide()
+	$ClearButton.hide()
 	$MessageTimer.start()
 
 # Displays game over messages and prepares for new game
@@ -27,6 +29,7 @@ func _display_gameover():
 	$Message.show()
 	$StartButton.show()
 	$InstructionsLabel.show()
+	$ClearButton.show()
 
 # Handles behavior for when MessageTimer runs out
 # _on_MessageTimer_timeout(): void
@@ -38,6 +41,11 @@ func _on_MessageTimer_timeout():
 func _on_StartButton_pressed():
 	$StartButton.hide()
 	emit_signal("start_game")
+
+# Handles behavior for when clear button is pressed
+# _on_ClearButton_pressed(): void
+func _on_ClearButton_pressed():
+	emit_signal("clear_screen")
 
 # Updates score
 # _update_score(score: int): void
