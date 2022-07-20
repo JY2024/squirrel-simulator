@@ -1,6 +1,6 @@
 # Squirrel Simulator
 
-This is a game in which the player is a squirrel that protects its nuts from monsters.
+This is a game in which the player is a squirrel that protects its nuts from dogs.
 
 Language: GDScript
 
