@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/rumble.mp3-7c48773f7439a35d2eb37cbfbdd25c20.mp3str"
+
+[deps]
+
+source_file="res://visual_resources/rumble.mp3"
+dest_files=[ "res://.import/rumble.mp3-7c48773f7439a35d2eb37cbfbdd25c20.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
