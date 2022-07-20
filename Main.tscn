@@ -6,8 +6,8 @@
 [ext_resource path="res://Main.gd" type="Script" id=4]
 [ext_resource path="res://Mob.tscn" type="PackedScene" id=5]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=6]
-[ext_resource path="res://art/rumble.mp3" type="AudioStream" id=7]
-[ext_resource path="res://art/game_over.mp3" type="AudioStream" id=8]
+[ext_resource path="res://visual_resources/rumble.mp3" type="AudioStream" id=7]
+[ext_resource path="res://visual_resources/game_over.mp3" type="AudioStream" id=8]
 
 [sub_resource type="Curve2D" id=1]
 _data = {

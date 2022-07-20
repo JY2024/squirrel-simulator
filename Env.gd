@@ -6,14 +6,15 @@ signal nut_planted(nuts)
 signal clear_screen
 
 export var nut_limit = 30
+export (PackedScene) var nut_holder
 onready var PlayerNode = get_node("../Player")
 var nuts = nut_limit
 var score = 0
 var obj_holder # Holds the nuts planted / trees, array
 var cell_size # For a 20 x 12 grid, Vector2
 # Resources
-var dirt_patch_img = preload("res://art/dirt_patch.png")
-var tree_obst_img = preload("res://art/tree_obst.png")
+var dirt_patch_img_size = Vector2(537, 465)
+var tree_obst_img_size = Vector2(445, 500)
 
 func _ready():
 	cell_size = Vector2(get_viewport_rect().size.x / 20, get_viewport_rect().size.y / 12) # 20 x 12 grid squares
@@ -35,25 +36,26 @@ func _on_Env_nut_touched(position):
 	var obj = obj_holder[indices.x][indices.y]
 	if obj == null && nuts > 0: # if nothing there and nuts available, place nut
 		nuts -= 1
-		_plant_nut(indices, dirt_patch_img)
+		_plant_nut(indices)
 		emit_signal("nut_planted")
 	elif obj != null && obj.pickup_available: # if there is a nut and can pick up, pick up nut
 		_pick_nut(indices)
 
 # Handles nut placement on environment
-# _plant_nut(indices: Vector2, img: Image): void
-func _plant_nut(indices, img):
+# _plant_nut(indices: Vector2): void
+func _plant_nut(indices):
 	# Calculate position
 	var pos_x = (cell_size.x * indices.x) + (cell_size.x / 2)
 	var pos_y = (cell_size.y * indices.y) + (cell_size.y / 2)
 	
 	# Scale
-	var obj_scale = Vector2(get_viewport_rect().size.x / (img.get_size().x * 20), get_viewport_rect().size.y / (img.get_size().y * 12))
+	var obj_scale = Vector2(get_viewport_rect().size.x / (dirt_patch_img_size.x * 20), get_viewport_rect().size.y / (dirt_patch_img_size.y * 12))
 	
-	var nut = NutHolder.new(pos_x, pos_y, obj_scale, cell_size.x, cell_size.y) # New nut instance
-	
+	var nut = nut_holder.instance() # New nut instance
 	obj_holder[indices.x][indices.y] = nut # Place in array
 	get_tree().root.add_child(nut) # Place in environment
+	
+	nut._initialize(pos_x, pos_y, obj_scale, cell_size.x, cell_size.y)
 	
 	emit_signal("nut_planted", nuts)
 

@@ -1,8 +1,30 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://NutHolder.gd" type="Script" id=1]
+[ext_resource path="res://visual_resources/dirt_patch.png" type="Texture" id=2]
+[ext_resource path="res://visual_resources/tree_obst.png" type="Texture" id=3]
 
 [node name="NutHolder" type="StaticBody2D"]
 position = Vector2( 528, 187 )
 collision_mask = 0
 script = ExtResource( 1 )
+
+[node name="NutSprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="TreeSprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="NoPickupTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="GrowingTreeTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="NoPickupTimer" to="." method="_on_nopickup_timeout"]
+[connection signal="timeout" from="GrowingTreeTimer" to="." method="_on_growing_timeout"]
