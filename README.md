@@ -1,10 +1,14 @@
 # Squirrel Simulator
 
-(Download link)
-
 This is a game in which the player is a squirrel that protects its nuts from monsters.
 
 Language: GDScript
+
+## Instructions
+
+1. Download from releases
+2. Unzip folder
+3. Open the SquirrelSimulator.exe
 
 ## Screenshots
 
