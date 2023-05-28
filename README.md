@@ -10,6 +10,10 @@ Language: GDScript
 2. Unzip folder
 3. Open the SquirrelSimulator.exe
 
+## Demo
+
+https://github.com/JY2024/squirrel-simulator/assets/92546705/a8c3e992-5de8-4704-ba44-9657b7d51b70
+
 ## Screenshots
 
 ![Screenshot of opening screen](screenshots/squirrel_screenshot1.png?raw=true)
